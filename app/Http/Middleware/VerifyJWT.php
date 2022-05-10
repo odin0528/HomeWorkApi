@@ -20,7 +20,7 @@ class VerifyJWT
             return $next($request);
         }else{
             return response()->json(
-                ['message' => 'User Token not found 2 !'], 404
+                ['code' => 401], 200
             );
         }
     }

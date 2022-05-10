@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vote extends Model
+class VoteCandidate extends Model
 {
     use HasFactory;
+
+    protected $table = 'vote_candidate';
 
     public $timestamps = true;
     protected $dateFormat = 'U';
 
-    protected $table = 'vote';
-
-    protected $guarded = [];
-
     protected $casts = [
         'id' => 'integer',
+        'void_it' => 'integer',
         'title' => 'string',
-        'start_time' => 'integer',
-        'end_time' => 'integer',
-        'status' => 'integer',
     ];
 }

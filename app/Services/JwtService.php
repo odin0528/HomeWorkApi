@@ -6,12 +6,12 @@ use App\Utils\JwtToken;
 
 class JwtService
 {
-    public function createToken($id)
+    public static function createToken($id)
     {
         return JwtToken::createToken($id);
     }
 
-    public function verifyToken($request)
+    public static function verifyToken($request)
     {
         $header = $request->header('Authorization', '');
 

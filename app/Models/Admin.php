@@ -20,4 +20,8 @@ class Admin extends Model
         'account' => 'string',
         'password' => 'string',
     ];
+
+    public static function getAdminByAccount($account){  
+      return self::query()->where("account", $account)->first();
+    }
 }

@@ -3,20 +3,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Repository\AdminRepository;
-use App\Services\JwtService;
+use App\Models\Admin;
 use App\Utils\BaseUtil;
+use App\Services\JwtService;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function __construct(
-        AdminRepository $adminRepository,
-        JwtService $jwtService
-    ) {
-        $this->adminRepository = $adminRepository;
-        $this->jwtService = $jwtService;
-    }
 
     public function login(Request $request)
     {
@@ -33,8 +26,7 @@ class AdminController extends Controller
         if (strlen($all["password"]) < 6 || strlen($all["password"]) > 32) {
             return $this->return(400, "密码必须6-32字符");
         }
-
-        $result = $this->adminRepository->getAdminByAccount($all["account"]);
+        $result = Admin::getAdminByAccount($all["account"]);
 
         if (empty($result)) {
             return $this->return(400, "用户名有误，请核对");
@@ -45,7 +37,7 @@ class AdminController extends Controller
         }
 
         unset($result["password"]);
-        $result["token"] = $this->jwtService->createToken($result["id"]);
+        $result["token"] = JwtService::createToken($result["id"]);
         return $this->return(200, $result);
     }
 }
